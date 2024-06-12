@@ -42,7 +42,7 @@ def create_payload(generate_random_string_10):
     return payload
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope='function')
 @allure.step('payload заказа')
 def create_order_payload():
     ingredients_list = OrderRequests().get_ingredients_list()
@@ -50,18 +50,6 @@ def create_order_payload():
     ids_for_payload = random.sample(ids, 3)
     payload = {"ingredients": ids_for_payload}
     return payload
-
-
-# @pytest.fixture(scope='class')
-# @allure.step('payload заказа')
-# def create_order(create_order_payload, request):
-#     order_with = OrderRequests(payload=create_order_payload)  # Создается объект OrderRequests с create_order_payload
-#     request.cls.order_with = order_with  # Присвоение request.cls.order_with = order_with необходимо для того, чтобы
-#     # атрибут order_with был доступен в тестовом классе. request.cls ссылается
-#     # на экземпляр тестового класса, динамически добавляете атрибут к этому экземпляру.
-
-
-# created_couriers_list = []
 
 
 @pytest.fixture(scope='function')
@@ -77,17 +65,6 @@ def courier_with_payload(create_payload):
         courier_requests.access_token = access_token
 
     return courier_requests
-
-
-# @pytest.fixture(scope='function')
-# def courier_with_payload_new(create_payload):
-#     courier_requests = UserRequests()
-#     # Создаем Пользовательа
-#     payload = create_payload
-#     courier_requests.payload = payload  # Добавляем payload в объект
-#     response_new = courier_requests.post_create_user(data=payload)
-#
-#     return courier_requests
 
 
 @pytest.fixture(scope='function', autouse=True)
