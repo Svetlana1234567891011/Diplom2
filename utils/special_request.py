@@ -33,18 +33,12 @@ class MainRequests:
     def delete_request_transform(self, url, token):
         headers = {"Content-Type": "application/json", 'authorization': token}
         response = requests.delete(url=url, headers=headers)
-        # if 'application/json' in response.headers['Content-Type']:
-        #     return response.json()
-        # else:
-        #     return response.text
+
         return {"status_code": response.status_code, "text": response.json()}
 
     def get_request_transform(self, url):
         response = requests.get(url=url, data={})
-        # if 'application/json' in response.headers['Content-Type']:
-        #     return response.json()
-        # else:
-        #     return response.text
+
         return {"status_code": response.status_code, "text": response.json()}
 
     def get_request_transform_token(self, url, token):
